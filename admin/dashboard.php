@@ -23,14 +23,17 @@ $result = mysqli_query($conn, $query);
 <body class="bg-slate-50 min-h-screen flex">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col">
-        <div class="p-6 border-b border-slate-100">
+    <aside id="adminSidebar" class="fixed inset-y-0 left-0 w-64 bg-white border-r border-slate-200 z-50 transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300 ease-in-out flex flex-col shadow-2xl md:shadow-none">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <a href="../index.php" class="flex items-center space-x-3">
                 <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-100">
                     <i class="fas fa-heart text-xs"></i>
                 </div>
                 <span class="font-bold text-slate-800 tracking-tight">Me & Mari</span>
             </a>
+            <button onclick="toggleAdminSidebar()" class="md:hidden text-slate-400 hover:text-slate-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
         <nav class="flex-1 p-4 space-y-2">
             <a href="dashboard.php" class="flex items-center space-x-3 p-3 bg-indigo-50 text-indigo-700 rounded-xl font-semibold">
@@ -56,8 +59,13 @@ $result = mysqli_query($conn, $query);
 
     <!-- Main Content -->
     <main class="flex-1 min-w-0 overflow-auto">
-        <header class="h-16 bg-white border-b border-slate-200 px-8 flex items-center justify-between sticky top-0 z-10">
-            <h2 class="font-bold text-slate-800">Manajemen Kenangan</h2>
+        <header class="h-20 md:h-16 bg-white border-b border-slate-200 px-6 md:px-8 flex items-center justify-between sticky top-0 z-10">
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleAdminSidebar()" class="md:hidden w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2 class="font-bold text-slate-800">Manajemen Kenangan</h2>
+            </div>
             <div class="flex items-center space-x-4">
                 <span class="text-sm font-medium text-slate-500">Welcome, <?php echo $_SESSION['user_name'] ?? 'Admin'; ?></span>
                 <?php
@@ -160,8 +168,22 @@ $result = mysqli_query($conn, $query);
         </div>
     </main>
 
+    <div id="adminOverlay" onclick="toggleAdminSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity duration-300 backdrop-blur-sm"></div>
+
     <script>
-    // Script removed - Scanning is now automatic
+    function toggleAdminSidebar() {
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('adminOverlay');
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        
+        if (isHidden) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
     </script>
 </body>
 </html>

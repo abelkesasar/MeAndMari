@@ -22,6 +22,7 @@ if (isset($_POST['update'])) {
     $location = mysqli_real_escape_string($conn, $_POST['location']);
     $happy_meter = $_POST['happy_meter'];
     $created_at = $_POST['created_at'];
+    $is_background = isset($_POST['is_background']) ? 1 : 0;
 
     // Update main memory info
     $update_query = "UPDATE memories SET 
@@ -29,7 +30,8 @@ if (isset($_POST['update'])) {
                      description = '$description', 
                      location = '$location', 
                      happy_meter = '$happy_meter',
-                     created_at = '$created_at'
+                     created_at = '$created_at',
+                     is_background = '$is_background'
                      WHERE id = $id";
     
     if (mysqli_query($conn, $update_query)) {
@@ -177,9 +179,7 @@ $videos_res = mysqli_query($conn, "SELECT * FROM memory_videos WHERE memory_id =
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-2">Cerita Singkat</label>
-                                <textarea name="description" rows="5"
-                                    class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"><?php echo htmlspecialchars($memory['description']); ?></textarea>
+                                <label class="block text-sm fo
                             </div>
 
                             <div>

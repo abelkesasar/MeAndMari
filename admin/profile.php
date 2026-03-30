@@ -54,14 +54,17 @@ if (!empty($user_db['profile_pic'])) {
 <body class="bg-slate-50 min-h-screen flex">
 
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col">
-        <div class="p-6 border-b border-slate-100">
+    <aside id="adminSidebar" class="fixed inset-y-0 left-0 w-64 bg-white border-r border-slate-200 z-50 transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300 ease-in-out flex flex-col shadow-2xl md:shadow-none">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <a href="../index.php" class="flex items-center space-x-3">
                 <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-100">
                     <i class="fas fa-heart text-xs"></i>
                 </div>
                 <span class="font-bold text-slate-800 tracking-tight">Me & Mari</span>
             </a>
+            <button onclick="toggleAdminSidebar()" class="md:hidden text-slate-400 hover:text-slate-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
         <nav class="flex-1 p-4 space-y-2">
             <a href="dashboard.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-xl transition-all">
@@ -85,7 +88,10 @@ if (!empty($user_db['profile_pic'])) {
         </div>
     </aside>
 
-    <main class="flex-1 min-w-0 overflow-auto p-8">
+    <main class="flex-1 min-w-0 overflow-auto p-8 relative">
+        <button onclick="toggleAdminSidebar()" class="md:hidden fixed top-6 right-6 z-40 w-12 h-12 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center text-slate-600">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
         <div class="max-w-xl mx-auto">
             <div class="mb-8">
                 <a href="dashboard.php" class="text-slate-400 hover:text-slate-600 transition-colors flex items-center font-medium mb-4">
@@ -133,5 +139,22 @@ if (!empty($user_db['profile_pic'])) {
         </div>
     </main>
 
+    <div id="adminOverlay" onclick="toggleAdminSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity duration-300 backdrop-blur-sm"></div>
+
+    <script>
+    function toggleAdminSidebar() {
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('adminOverlay');
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        
+        if (isHidden) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+    </script>
 </body>
 </html>

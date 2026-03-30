@@ -12,10 +12,11 @@ if (isset($_POST['submit'])) {
     $location = mysqli_real_escape_string($conn, $_POST['location']);
     $happy_meter = $_POST['happy_meter'];
     $created_at = $_POST['created_at'];
+    $is_background = isset($_POST['is_background']) ? 1 : 0;
 
     // Insert to memories table
-    $query = "INSERT INTO memories (title, photo, happy_meter, description, location, created_at) 
-              VALUES ('$title', '', '$happy_meter', '$description', '$location', '$created_at')";
+    $query = "INSERT INTO memories (title, photo, happy_meter, description, location, created_at, is_background) 
+              VALUES ('$title', '', '$happy_meter', '$description', '$location', '$created_at', '$is_background')";
     
     if (mysqli_query($conn, $query)) {
         $memory_id = mysqli_insert_id($conn);
@@ -170,13 +171,17 @@ if (isset($_POST['submit'])) {
                             placeholder="Tuliskan apa yang membuat momen ini spesial..."></textarea>
                     </div>
 
+                    <!-- Background Toggle -->
+                    <label class="flex items-center gap-4 p-5 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-indigo-50 hover:border-indigo-300 transition-all cursor-pointer group">
+                        <div class="relative flex-shrink-0">
+                            <input type="checkbox" name="is_background" id="is_background" class="sr-only peer">
+                            <div class="w-12 h-6 bg-slate-200 rounded-full peer-checked:bg-indigo-600 transition-colors duration-300"></div>
+                            <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300 peer-checked:translate-x-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-700 group-hover:text-indigo-700 transition-colors">Jadikan Background Halaman Utama</p>
+                            <p class="text-xs text-slate-400 mt-0.5">Foto-foto dari kenangan ini akan tampil sebagai background animasi di halaman utama</p>
+                        </div>
+                    </label>
+
                     <button type="submit" name="submit"
-                        class="w-full py-5 bg-slate-900 text-white rounded-2xl font-bold shadow-xl shadow-slate-200 hover:bg-slate-800 transition-all hover:scale-[1.01] active:scale-95">
-                        Simpan Kenangan
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
-</html>

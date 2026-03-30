@@ -17,8 +17,8 @@ $res = mysqli_query($conn, "SELECT photo FROM memory_photos ORDER BY id DESC LIM
 while($r = mysqli_fetch_assoc($res)) $all_media[] = ['type' => 'photo', 'url' => $r['photo']];
 
 // Data dummy biodata
-$abel_bio = "Halo! Aku Abel. Senang berbagi momen indah bersamamu.";
-$mari_bio = "Hai! Aku Mari. Mari kita buat lebih banyak kenangan manis.";
+$abel_bio = "Halo! Aku Abel. Sekarang masih kuliah dan gatau lulusnya kapan, ini projek pertama aku dan emang masih banyak kurangnya, Salam kenal semuanya!";
+$mari_bio = "Hai! Aku Mari. Aku lagi pusing nih nyusun skripsi, tapi dibawa santai aja kali ya hihi. Salam kenal semuanya!";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +36,10 @@ $mari_bio = "Hai! Aku Mari. Mari kita buat lebih banyak kenangan manis.";
 <body class="bg-slate-50 min-h-screen">
     
     <?php include 'sidebar.php'; ?>
+
+    <button onclick="toggleSidebar()" class="md:hidden fixed top-6 left-6 z-40 w-12 h-12 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
 
     <main class="md:ml-64 px-4 py-12">
         <header class="text-center mb-16 space-y-4">
@@ -60,25 +64,25 @@ $mari_bio = "Hai! Aku Mari. Mari kita buat lebih banyak kenangan manis.";
                 <div class="flex-1 space-y-6">
                     <div class="border-b border-slate-100 pb-4">
                         <h2 class="text-3xl font-bold text-slate-900">Abel</h2>
-                        <p class="text-indigo-500 font-medium italic">"Life is better with you."</p>
+                        <p class="text-indigo-500 font-medium italic">"Gamau kerja, maunya bobok"</p>
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                         <div class="space-y-1">
                             <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Birthday</span>
-                            <p class="text-slate-700 font-semibold">01 January 2000</p>
+                            <p class="text-slate-700 font-semibold">04 June 2005</p>
                         </div>
                         <div class="space-y-1">
                             <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Favorite Food</span>
-                            <p class="text-slate-700 font-semibold">Nasi Goreng</p>
+                            <p class="text-slate-700 font-semibold">Sate Mas Roni</p>
                         </div>
                         <div class="space-y-1">
                             <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Hobbies</span>
                             <p class="text-slate-700 font-semibold">Coding & Gaming</p>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Zodiac</span>
-                            <p class="text-slate-700 font-semibold">Capricorn</p>
+                            <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Favorite Hero</span>
+                            <p class="text-slate-700 font-semibold">Yu Zhong</p>
                         </div>
                     </div>
 
@@ -105,25 +109,25 @@ $mari_bio = "Hai! Aku Mari. Mari kita buat lebih banyak kenangan manis.";
                 <div class="flex-1 space-y-6">
                     <div class="border-b border-slate-100 pb-4 md:text-right">
                         <h2 class="text-3xl font-bold text-slate-900">Mari</h2>
-                        <p class="text-pink-500 font-medium italic">"Always and forever."</p>
+                        <p class="text-pink-500 font-medium italic">"Vivre la vie"</p>
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm md:text-right">
                         <div class="space-y-1">
                             <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Birthday</span>
-                            <p class="text-slate-700 font-semibold">01 January 2000</p>
+                            <p class="text-slate-700 font-semibold">27 May 2004</p>
                         </div>
                         <div class="space-y-1">
                             <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Favorite Drink</span>
-                            <p class="text-slate-700 font-semibold">Matcha Latte</p>
+                            <p class="text-slate-700 font-semibold">Es Kopi Susu</p>
                         </div>
                         <div class="space-y-1">
                             <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Hobbies</span>
                             <p class="text-slate-700 font-semibold">Reading & Music</p>
                         </div>
                         <div class="space-y-1">
-                            <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Zodiac</span>
-                            <p class="text-slate-700 font-semibold">Virgo</p>
+                            <span class="text-slate-400 font-bold uppercase text-[10px] tracking-wider">Favorite Colour</span>
+                            <p class="text-slate-700 font-semibold">Pink</p>
                         </div>
                     </div>
 

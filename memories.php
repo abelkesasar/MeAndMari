@@ -25,6 +25,10 @@ $result = mysqli_query($conn, $query);
     
     <?php include 'sidebar.php'; ?>
 
+    <button onclick="toggleSidebar()" class="md:hidden fixed top-6 left-6 z-40 w-12 h-12 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+
     <main class="md:ml-64 px-4 py-12">
         <header class="text-center mb-16 space-y-4">
             <h1 class="text-4xl font-bold text-slate-900 tracking-tight">Some kind of our love story ❤️</h1>
