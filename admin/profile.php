@@ -54,7 +54,7 @@ if (!empty($user_db['profile_pic'])) {
 <body class="bg-slate-50 min-h-screen flex">
 
     <!-- Sidebar -->
-    <aside id="adminSidebar" class="fixed inset-y-0 left-0 w-64 bg-white border-r border-slate-200 z-50 transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300 ease-in-out flex flex-col shadow-2xl md:shadow-none">
+    <aside id="adminSidebar" class="fixed inset-y-0 left-0 w-60 bg-white border-r border-slate-200 z-50 transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300 ease-in-out flex flex-col shadow-2xl md:shadow-none">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <a href="../index.php" class="flex items-center space-x-3">
                 <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-100">

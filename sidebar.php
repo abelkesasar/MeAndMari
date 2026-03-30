@@ -1,7 +1,7 @@
 <?php
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
-<aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white border-r border-slate-200 z-[60] transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none">
+<aside id="sidebar" class="fixed left-0 top-0 h-full w-60 bg-white border-r border-slate-200 z-[60] transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none">
     <div class="p-6">
         <div class="flex items-center justify-between mb-10">
             <a href="index.php" class="flex items-center space-x-2">

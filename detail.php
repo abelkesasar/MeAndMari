@@ -153,7 +153,7 @@ $videos_result = mysqli_query($conn, $video_query);
         <i class="fas fa-bars text-xl"></i>
     </button>
 
-    <main class="md:ml-64 px-4 py-12">
+    <main class="md:ml-60 px-4 py-12">
         <div class="bg-white rounded-[3rem] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
             <!-- Header Image / Cover -->
             <div class="relative h-[400px] md:h-[500px] overflow-hidden">
@@ -202,7 +202,7 @@ $videos_result = mysqli_query($conn, $video_query);
                             <i class="fas fa-images mr-3 text-indigo-600"></i> Galeri Momen & Video
                         </h3>
                         <span class="text-slate-400 text-sm font-semibold uppercase tracking-widest">
-                            Media Moments
+                            
                         </span>
                     </div>
                     

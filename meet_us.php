@@ -41,7 +41,7 @@ $mari_bio = "Hai! Aku Mari. Aku lagi pusing nih nyusun skripsi, tapi dibawa sant
         <i class="fas fa-bars text-xl"></i>
     </button>
 
-    <main class="md:ml-64 px-4 py-12">
+    <main class="md:ml-60 px-4 py-12">
         <header class="text-center mb-16 space-y-4">
             <h1 class="text-4xl font-bold text-slate-900 tracking-tight">Meet the Souls ❤️</h1>
             <p class="text-slate-500 max-w-lg mx-auto font-medium text-lg">Every story has its heroes. Here we are.</p>
