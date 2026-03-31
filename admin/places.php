@@ -6,15 +6,16 @@ if (!isset($_SESSION['admin_logged_in'])) {
 }
 require '../db.php';
 
-$query = "SELECT * FROM memories ORDER BY created_at DESC";
+$query = "SELECT * FROM places ORDER BY id DESC";
 $result = mysqli_query($conn, $query);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard - Me and Mari</title>
+<title>Manage Places - Me & Mari</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -45,23 +46,23 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
 
     <nav class="flex-1 p-4 space-y-2">
 
-        <a href="dashboard.php" class="flex items-center space-x-3 p-3 bg-indigo-50 text-indigo-700 rounded-xl font-semibold">
+        <a href="dashboard.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all">
             <i class="fas fa-th-large w-5"></i>
             <span>Dashboard</span>
         </a>
 
-        <a href="add.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-xl transition-all">
+        <a href="add.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all">
             <i class="fas fa-plus-circle w-5"></i>
             <span>Tambah Kenangan</span>
         </a>
 
-        <!-- 🔥 FIX TAMBAHAN -->
-        <a href="places.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-xl transition-all">
+        <!-- ACTIVE -->
+        <a href="places.php" class="flex items-center space-x-3 p-3 bg-indigo-50 text-indigo-700 rounded-xl font-semibold">
             <i class="fas fa-map-marker-alt w-5"></i>
             <span>Manage Places</span>
         </a>
 
-        <a href="profile.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-xl transition-all">
+        <a href="profile.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all">
             <i class="fas fa-user-circle w-5"></i>
             <span>Profil Saya</span>
         </a>
@@ -89,22 +90,14 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
 $u_query = mysqli_query($conn, "SELECT profile_pic FROM users WHERE username = '" . mysqli_real_escape_string($conn, strtolower($user_name)) . "'");
 $u_db = mysqli_fetch_assoc($u_query);
 
-// default avatar
 $profile_pic = "https://ui-avatars.com/api/?name=" . urlencode($user_name) . "&background=random&size=128";
 
 if (!empty($u_db['profile_pic'])) {
     $profile_pic = "../uploads/" . $u_db['profile_pic'];
-} else {
-    if (strtolower($user_name) == 'abel') {
-        $profile_pic = "https://ui-avatars.com/api/?name=Abel&background=4f46e5&color=fff&size=128";
-    } elseif (strtolower($user_name) == 'mari') {
-        $profile_pic = "https://ui-avatars.com/api/?name=Mari&background=ec4899&color=fff&size=128";
-    }
 }
 ?>
 
 <div class="flex items-center space-x-3">
-
     <div class="text-right leading-tight">
         <p class="text-[10px] text-slate-400 uppercase tracking-widest">Logged in as</p>
         <p class="text-lg font-bold text-slate-800">
@@ -115,7 +108,6 @@ if (!empty($u_db['profile_pic'])) {
     <div class="w-10 h-10 rounded-full overflow-hidden">
         <img src="<?php echo $profile_pic; ?>" class="w-full h-full object-cover">
     </div>
-
 </div>
 
 </header>
@@ -125,13 +117,13 @@ if (!empty($u_db['profile_pic'])) {
 
 <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
     <div>
-        <h1 class="text-2xl font-bold text-slate-900">Daftar Kenangan</h1>
-        <p class="text-slate-500 text-sm mt-1">Kelola momen-momen indah yang telah disimpan.</p>
+        <h1 class="text-2xl font-bold text-slate-900">Manage Places</h1>
+        <p class="text-slate-500 text-sm mt-1">Kelola tempat-tempat yang pernah dikunjungi.</p>
     </div>
 
-    <a href="add.php" class="inline-flex items-center px-6 py-3 bg-slate-900 text-white rounded-xl font-semibold shadow hover:bg-slate-800 transition">
+    <a href="places_add.php" class="inline-flex items-center px-6 py-3 bg-slate-900 text-white rounded-xl font-semibold shadow hover:bg-slate-800 transition">
         <i class="fas fa-plus mr-2 text-xs"></i>
-        Kenangan Baru
+        Tambah Place
     </a>
 </div>
 
@@ -149,9 +141,9 @@ if (!empty($u_db['profile_pic'])) {
 
 <thead>
 <tr class="bg-slate-50 border-b border-slate-200">
-    <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Kenangan</th>
+    <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Place</th>
     <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Lokasi</th>
-    <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Happy</th>
+    <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Maps</th>
     <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase text-right">Aksi</th>
 </tr>
 </thead>
@@ -165,11 +157,47 @@ if (!empty($u_db['profile_pic'])) {
 <td class="px-6 py-4">
     <div class="flex items-center space-x-4">
         <div class="w-12 h-12 rounded-xl overflow-hidden">
-            <img src="../uploads/<?php echo $row['photo']; ?>" class="w-full h-full object-cover">
+            <?php
+$cover = "";
+
+// 1. cover manual
+if (!empty($row['cover_photo'])) {
+    $cover = "../uploads/" . $row['cover_photo'];
+} else {
+
+    // 2. dari place_photos
+    $p = mysqli_query($conn, "SELECT photo FROM place_photos WHERE place_id = {$row['id']} LIMIT 1");
+    $pp = mysqli_fetch_assoc($p);
+
+    if (!empty($pp['photo'])) {
+        $cover = "../uploads/" . $pp['photo'];
+    } else {
+
+        // 3. dari memories (by lokasi)
+        $loc = mysqli_real_escape_string($conn, $row['location']);
+
+        $m = mysqli_query($conn, "
+            SELECT photo FROM memories 
+            WHERE location LIKE '%$loc%' 
+            LIMIT 1
+        ");
+        $mm = mysqli_fetch_assoc($m);
+
+        if (!empty($mm['photo'])) {
+            $cover = "../uploads/" . $mm['photo'];
+        } else {
+            // 4. fallback terakhir
+            $cover = "https://via.placeholder.com/300";
+        }
+    }
+}
+?>
+
+<img src="<?php echo $cover; ?>" class="w-full h-full object-cover">
         </div>
         <div>
-            <div class="font-bold"><?php echo $row['title']; ?></div>
-            <div class="text-xs text-slate-400"><?php echo date('d M Y', strtotime($row['created_at'])); ?></div>
+            <div class="font-bold"><?php echo $row['name']; ?></div>
+            <div class="text-xs text-slate-400"><?php echo $row['description']; ?></div>
         </div>
     </div>
 </td>
@@ -177,14 +205,14 @@ if (!empty($u_db['profile_pic'])) {
 <td class="px-6 py-4"><?php echo $row['location']; ?></td>
 
 <td class="px-6 py-4">
-    <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold">
-        <?php echo $row['happy_meter']; ?>
-    </span>
+    <a href="<?php echo $row['maps_link']; ?>" target="_blank" class="text-indigo-600 text-sm">
+        Open Maps
+    </a>
 </td>
 
 <td class="px-6 py-4 text-right space-x-2">
-    <a href="edit.php?id=<?php echo $row['id']; ?>" class="text-indigo-600">Edit</a>
-    <a href="delete.php?id=<?php echo $row['id']; ?>" class="text-red-500" onclick="return confirm('Yakin hapus?')">Delete</a>
+    <a href="places_edit.php?id=<?php echo $row['id']; ?>" class="text-indigo-600">Edit</a>
+    <a href="places_delete.php?id=<?php echo $row['id']; ?>" class="text-red-500" onclick="return confirm('Yakin hapus?')">Delete</a>
 </td>
 
 </tr>
