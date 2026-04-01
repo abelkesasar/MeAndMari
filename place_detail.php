@@ -35,20 +35,22 @@ $memory_photos = mysqli_query($conn, "
 // =====================
 // FIX COVER (ANTI BLANK)
 // =====================
-$cover = '';
+$cover = $place['cover_photo'] ?? '';
 
-$tmp_img = mysqli_query($conn, "SELECT image FROM place_images WHERE place_id=$id LIMIT 1");
-if(mysqli_num_rows($tmp_img) > 0){
-    $cover = mysqli_fetch_assoc($tmp_img)['image'];
-}else{
-    $tmp_mem = mysqli_query($conn, "
-        SELECT mp.photo 
-        FROM memory_photos mp
-        JOIN place_memories pm ON mp.memory_id = pm.memory_id
-        WHERE pm.place_id = $id LIMIT 1
-    ");
-    if(mysqli_num_rows($tmp_mem) > 0){
-        $cover = mysqli_fetch_assoc($tmp_mem)['photo'];
+if($cover == ''){
+    $tmp_img = mysqli_query($conn, "SELECT image FROM place_images WHERE place_id=$id LIMIT 1");
+    if(mysqli_num_rows($tmp_img) > 0){
+        $cover = mysqli_fetch_assoc($tmp_img)['image'];
+    }else{
+        $tmp_mem = mysqli_query($conn, "
+            SELECT mp.photo 
+            FROM memory_photos mp
+            JOIN place_memories pm ON mp.memory_id = pm.memory_id
+            WHERE pm.place_id = $id LIMIT 1
+        ");
+        if(mysqli_num_rows($tmp_mem) > 0){
+            $cover = mysqli_fetch_assoc($tmp_mem)['photo'];
+        }
     }
 }
 
@@ -214,7 +216,7 @@ while($m = mysqli_fetch_assoc($memory_photos)): ?>
 
 <a href="detail.php?id=<?= $m['id'] ?>" class="group block">
 
-<div class="bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition">
+<div class="bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-100 hover:-translate-y-1 h-full flex flex-col">
 
 <div class="aspect-[4/5] overflow-hidden">
 <img src="uploads/<?= $m['photo'] ?>" 

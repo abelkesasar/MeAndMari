@@ -29,7 +29,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
 </style>
 </head>
 
-<body class="bg-slate-50 min-h-screen">
+<body class="bg-gradient-to-br from-indigo-100 via-white to-purple-100 min-h-screen">
 
 <?php include 'sidebar.php'; ?>
 
@@ -38,11 +38,14 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
     <i class="fas fa-bars text-xl"></i>
 </button>
 
-<main class="md:ml-60 px-4 py-12">
+<main class="md:ml-64 px-4 py-12">
 
     <!-- HEADER -->
-    <header class="text-center mb-16 space-y-4">
-        <h1 class="text-4xl font-bold text-slate-900 tracking-tight">Places We've Been 📍</h1>
+    <header class="text-center mb-16 space-y-4 relative">
+        <h1 class="text-4xl font-bold tracking-tight text-slate-900">
+            Places We've Been 
+            <span class="text-indigo-500">📍</span>
+        </h1>
         <p class="text-slate-500 max-w-lg mx-auto font-medium text-lg">Every place holds a story of us.</p>
 
         <!-- SEARCH -->
@@ -50,7 +53,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
             <form method="GET" action="places.php" class="relative group">
                 <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" 
                     placeholder="Cari tempat..." 
-                    class="w-full pl-12 pr-6 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all bg-white shadow-sm group-hover:shadow-md">
+                    class="w-full pl-12 pr-6 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-all bg-white shadow-md hover:shadow-lg">
                 <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors">
                     <i class="fas fa-search"></i>
                 </div>
@@ -66,20 +69,22 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
 
                 <?php
                 // ambil preview image
-                $img = '';
+                $img = $row['cover_photo'] ?? '';
 
-                $img_q = mysqli_query($conn, "SELECT image FROM place_images WHERE place_id=".$row['id']." LIMIT 1");
-                if(mysqli_num_rows($img_q) > 0){
-                    $img = mysqli_fetch_assoc($img_q)['image'];
-                } else {
-                    $mem_q = mysqli_query($conn, "
-                        SELECT mp.photo 
-                        FROM memory_photos mp
-                        JOIN place_memories pm ON mp.memory_id = pm.memory_id
-                        WHERE pm.place_id=".$row['id']." LIMIT 1
-                    ");
-                    if(mysqli_num_rows($mem_q) > 0){
-                        $img = mysqli_fetch_assoc($mem_q)['photo'];
+                if($img == ''){
+                    $img_q = mysqli_query($conn, "SELECT image FROM place_images WHERE place_id=".$row['id']." LIMIT 1");
+                    if(mysqli_num_rows($img_q) > 0){
+                        $img = mysqli_fetch_assoc($img_q)['image'];
+                    } else {
+                        $mem_q = mysqli_query($conn, "
+                            SELECT mp.photo 
+                            FROM memory_photos mp
+                            JOIN place_memories pm ON mp.memory_id = pm.memory_id
+                            WHERE pm.place_id=".$row['id']." LIMIT 1
+                        ");
+                        if(mysqli_num_rows($mem_q) > 0){
+                            $img = mysqli_fetch_assoc($mem_q)['photo'];
+                        }
                     }
                 }
 

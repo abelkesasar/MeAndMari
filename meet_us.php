@@ -33,7 +33,7 @@ $mari_bio = "Hai! Aku Mari. Aku lagi pusing nih nyusun skripsi, tapi dibawa sant
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen">
+<body class="bg-gradient-to-br from-indigo-100 via-white to-purple-100 min-h-screen">
     
     <?php include 'sidebar.php'; ?>
 

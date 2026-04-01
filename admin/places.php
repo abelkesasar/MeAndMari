@@ -28,58 +28,15 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
 
 <body class="bg-slate-50 min-h-screen flex">
 
-<!-- SIDEBAR -->
-<aside id="adminSidebar" class="fixed inset-y-0 left-0 w-60 bg-white border-r border-slate-200 z-50 transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300 ease-in-out flex flex-col shadow-2xl md:shadow-none">
+<?php include '../sidebar.php'; ?>
 
-    <div class="p-6 border-b border-slate-100 flex items-center justify-between">
-        <a href="dashboard.php" class="flex items-center space-x-3">
-            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-indigo-100">
-                <i class="fas fa-heart text-xs"></i>
-            </div>
-            <span class="font-bold text-slate-800 tracking-tight">Me & Mari</span>
-        </a>
-
-        <button onclick="toggleAdminSidebar()" class="md:hidden text-slate-400 hover:text-slate-600">
-            <i class="fas fa-times text-xl"></i>
-        </button>
-    </div>
-
-    <nav class="flex-1 p-4 space-y-2">
-
-        <a href="dashboard.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all">
-            <i class="fas fa-th-large w-5"></i>
-            <span>Dashboard</span>
-        </a>
-
-        <a href="add.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all">
-            <i class="fas fa-plus-circle w-5"></i>
-            <span>Tambah Kenangan</span>
-        </a>
-
-        <!-- ACTIVE -->
-        <a href="places.php" class="flex items-center space-x-3 p-3 bg-indigo-50 text-indigo-700 rounded-xl font-semibold">
-            <i class="fas fa-map-marker-alt w-5"></i>
-            <span>Manage Places</span>
-        </a>
-
-        <a href="profile.php" class="flex items-center space-x-3 p-3 text-slate-500 hover:bg-slate-50 rounded-xl transition-all">
-            <i class="fas fa-user-circle w-5"></i>
-            <span>Profil Saya</span>
-        </a>
-
-    </nav>
-
-    <div class="p-4 border-t border-slate-100">
-        <a href="../logout.php" class="flex items-center space-x-3 p-3 text-red-500 hover:bg-red-50 rounded-xl transition-all">
-            <i class="fas fa-sign-out-alt w-5"></i>
-            <span class="font-semibold">Logout</span>
-        </a>
-    </div>
-
-</aside>
+<button onclick="toggleSidebar()" 
+class="md:hidden fixed top-6 left-6 z-50 w-12 h-12 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all">
+    <i class="fas fa-bars text-xl"></i>
+</button>
 
 <!-- MAIN -->
-<main class="flex-1 min-w-0 overflow-auto">
+<main class="flex-1 min-w-0 overflow-auto md:ml-64">
 
 <!-- HEADER -->
 <header class="h-20 md:h-16 bg-white border-b border-slate-200 px-6 md:px-8 flex items-center justify-end sticky top-0 z-10">

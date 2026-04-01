@@ -21,24 +21,26 @@ $result = mysqli_query($conn, $query);
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen">
+<body class="bg-gradient-to-br from-indigo-100 via-white to-purple-100 min-h-screen">
     
     <?php include 'sidebar.php'; ?>
 
-    <button onclick="toggleSidebar()" class="md:hidden fixed top-6 left-6 z-40 w-12 h-12 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all">
+    <!-- MOBILE BUTTON -->
+    <button onclick="toggleSidebar()" class="md:hidden fixed top-6 left-6 z-40 w-12 h-12 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all active:scale-90">
         <i class="fas fa-bars text-xl"></i>
     </button>
 
-    <main class="md:ml-60 px-4 py-12">
+    <main class="md:ml-64 px-4 py-12 transition-all duration-300">
         <header class="text-center mb-16 space-y-4">
             <h1 class="text-4xl font-bold text-slate-900 tracking-tight">Some kind of our love story ❤️</h1>
+            
             <p class="text-slate-500 max-w-lg mx-auto font-medium text-lg">Been through up and down, but we stay.</p>
             
             <div class="max-w-md mx-auto pt-6">
                 <form method="GET" action="memories.php" class="relative group">
                     <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" 
                         placeholder="Cari kenangan..." 
-                        class="w-full pl-12 pr-6 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all bg-white shadow-sm group-hover:shadow-md">
+                        class="w-full pl-12 pr-6 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-all bg-white shadow-md hover:shadow-lg">
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors">
                         <i class="fas fa-search"></i>
                     </div>
@@ -50,11 +52,12 @@ $result = mysqli_query($conn, $query);
             <?php if (mysqli_num_rows($result) > 0): ?>
                 <?php while($row = mysqli_fetch_assoc($result)): ?>
                     <a href="detail.php?id=<?php echo $row['id']; ?>" class="group block h-full">
-                        <div class="bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-100 hover:-translate-y-1 h-full flex flex-col">
+                        <div class="bg-white rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-100 hover:-translate-y-1 h-full flex flex-col">
                             <div class="relative aspect-[4/5] overflow-hidden">
                                 <img src="uploads/<?php echo $row['photo']; ?>" 
-                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                                      alt="Memory">
+                                     <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
                                 <div class="absolute top-4 right-4 z-10">
                                     <span class="px-4 py-2 bg-white/90 backdrop-blur-sm text-slate-900 rounded-full text-xs font-bold shadow-lg">
                                         <?php echo date('d M Y', strtotime($row['created_at'])); ?>
@@ -66,7 +69,7 @@ $result = mysqli_query($conn, $query);
                             </div>
                             <div class="p-8 flex-1 flex flex-col">
                                 <div class="space-y-2 mb-4">
-                                    <h5 class="text-xl font-bold text-slate-800 leading-snug"><?php echo $row['title']; ?></h5>
+                                    <h5 class="text-xl font-bold text-slate-800 group-hover:text-slate-500 group-hover:text-indigo-500 transition-colors"><?php echo $row['title']; ?></h5>
                                     <p class="text-indigo-600 text-sm font-semibold inline-flex items-center">
                                         <i class="fas fa-map-marker-alt mr-1.5 opacity-70"></i> 
                                         <?php echo $row['location']; ?>
@@ -77,7 +80,7 @@ $result = mysqli_query($conn, $query);
                                 </p>
                                 <div class="pt-4 border-t border-slate-50 flex items-center justify-between mt-auto">
                                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Happy Meter</span>
-                                    <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-bold">
+                                    <span class="px-3 py-1 bg-slate-100 text-slate-700 group-hover:bg-indigo-50 group-hover:text-indigo-700 transition-all rounded-full text-sm font-bold">
                                         <?php echo $row['happy_meter']; ?>
                                     </span>
                                 </div>

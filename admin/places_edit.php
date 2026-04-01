@@ -31,13 +31,23 @@ if (isset($_POST['update'])) {
 
     if (mysqli_query($conn, $update)) {
 
-        // HANDLE FOTO
+        // FOTO BIASA
         if (!empty($_FILES['photo']['name'])) {
             $ext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
-            $new_name = time() . '.' . $ext;
+            $new_name = time() . '_photo.' . $ext;
 
             if (move_uploaded_file($_FILES['photo']['tmp_name'], "../uploads/" . $new_name)) {
                 mysqli_query($conn, "UPDATE places SET photo = '$new_name' WHERE id = $id");
+            }
+        }
+
+        // 🔥 COVER PHOTO (TAMBAHAN)
+        if (!empty($_FILES['cover_photo']['name'])) {
+            $ext = pathinfo($_FILES['cover_photo']['name'], PATHINFO_EXTENSION);
+            $new_cover = time() . '_cover.' . $ext;
+
+            if (move_uploaded_file($_FILES['cover_photo']['tmp_name'], "../uploads/" . $new_cover)) {
+                mysqli_query($conn, "UPDATE places SET cover_photo = '$new_cover' WHERE id = $id");
             }
         }
 
@@ -163,7 +173,22 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
             class="flex-1 px-5 py-4 rounded-2xl border border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer text-sm">
 
         </div>
+    </div>
 
+    <!-- 🔥 COVER PHOTO BARU -->
+    <div>
+        <label class="block text-sm font-bold text-slate-700 mb-2">Ganti Foto Sampul</label>
+
+        <div class="flex items-center space-x-4">
+
+            <div class="w-20 h-20 rounded-xl overflow-hidden border border-slate-200 shadow-sm">
+                <img src="../uploads/<?php echo $place['cover_photo']; ?>" class="w-full h-full object-cover">
+            </div>
+
+            <input type="file" name="cover_photo" accept="image/*"
+            class="flex-1 px-5 py-4 rounded-2xl border border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer text-sm">
+
+        </div>
     </div>
 
 </div>
